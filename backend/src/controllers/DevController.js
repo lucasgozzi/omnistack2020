@@ -1,5 +1,6 @@
 
 const Dev = require('../models/Dev');
+const axios = require('axios');
 const parseStringAsArray = require('../Utils/parseStringAsArray');
 
 module.exports = {
@@ -61,7 +62,7 @@ module.exports = {
     async store(req, res) {
         const { github_username, techs, latitude, longitude } = req.body;
 
-        const dev = await Dev.findOne({ github_username });
+        let dev = await Dev.findOne({ github_username });
 
         if (!dev) {
             const githubResponse = await axios.get(`https://api.github.com/users/${github_username}`);
